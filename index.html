@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Marwan Wheel Neo</title>
+
+      <meta name="description" content="Marwan">
+     <meta name="description" content="2010.6.25">
+     <meta name="description" content="Mariam Ehab">
+     <meta name="description" content="Marwan Hany">
+     <meta name="description" content="Marwan Hany EL-Nagar"> 
+    <meta name="description" content="Marwan EL-Nagar">
+     <meta name="description" content="مريم ايهاب الخولي">
+     <meta name="description" content="مروان هاني النجار">
+    <meta name="description" content="مروان">
+     <meta name="description" content="مروان هاني ">
+     <meta name="description" content="مالك عمرو عزام">
+     <meta name="description" content="مالك عزام">
+     <meta name="description" content="wheel">
+     <meta name="description" content="1255804477">
+     <meta name="description" content="2012.9.9">
+     <meta name="description" content="جودي سامح هلال">
+    <meta name="description" content="مالك عمرو مصطفى عزام">
+      <meta name="description" content="مريومتي ايهاب مرسي ">
+      <meta name="description" content="مرومه ايهاب مرسي">
+      <meta name="description" content="mariomty ehab morsy">
+      <meta name="description" content="mariam❤marwan.2012">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💎</text></svg>">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --neon-green: #00ff88;
+            --dark-space: #030303;
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark-space);
+            color: white;
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* حاوية العجلة */
+        #wheel-container {
+            position: relative;
+            width: 85vw;
+            max-width: 450px;
+            aspect-ratio: 1;
+            margin: 0 auto;
+        }
+
+        /* السهم الجديد - Neo Pointer */
+        #neo-pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            z-index: 50;
+            pointer-events: none;
+        }
+
+        .pointer-shape {
+            width: 100%;
+            height: 100%;
+            background: var(--neon-green);
+            clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+            filter: drop-shadow(0 0 10px var(--neon-green));
+            transition: transform 0.1s cubic-bezier(0.1, 0.7, 1.0, 0.1);
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.1);
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #00ff88 0%, #00a85a 100%);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .action-btn:hover { transform: scale(1.05); box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4); }
+        .action-btn:active { transform: scale(0.95); }
+
+        .profile-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 2rem;
+        }
+
+        #sidebar {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 10px; }
+    </style>
+</head>
+<body class="flex flex-col lg:flex-row h-screen">
+
+    <!-- Mobile Navigation -->
+    <header class="lg:hidden p-5 flex justify-between items-center glass z-50">
+        <span class="font-black text-green-400 text-sm tracking-widest">MARWAN ELNAGAR</span>
+        <button onclick="toggleSide()" class="text-xs font-bold glass px-4 py-2 rounded-full border border-green-500/30">القائمة ☰</button>
+    </header>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed lg:relative inset-0 z-[100] translate-x-full lg:translate-x-0 bg-[#030303] lg:bg-transparent w-full lg:w-[380px] p-8 flex flex-col glass border-l border-white/5">
+        
+        <!-- Professional Profile -->
+        <div class="mb-10 text-center lg:text-right">
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center text-black font-black text-xl">M</div>
+                    <div class="text-right">
+                        <h2 class="text-lg font-black tracking-tight">مروان هاني النجار</h2>
+                        <span class="text-[8px] text-green-500 font-bold uppercase tracking-[0.2em]">Creative Web Solutions</span>
+                    </div>
+                </div>
+                <button onclick="toggleSide()" class="lg:hidden text-3xl">&times;</button>
+            </div>
+
+            <div class="profile-card p-6 text-right space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="opacity-70">💬</span>
+                    <a href="https://wa.me/201011960156" target="_blank" class="text-xs font-bold hover:text-green-400 transition-colors">+20 1011960156</a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="opacity-70">🌍</span>
+                    <a href="https://marwanelnagar.github.io/Data-about" target="_blank" class="text-xs font-bold hover:text-green-400 transition-colors">عن المطور (Data Center)</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Participant List -->
+        <div class="flex-1 flex flex-col min-h-0">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-[10px] font-black text-gray-500 uppercase tracking-widest">المتسابقين</h3>
+                <button onclick="addNew()" class="text-[10px] font-black bg-white text-black px-4 py-2 rounded-xl transition-transform active:scale-90">+ إضافة</button>
+            </div>
+            <div id="list" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-2"></div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-white/10">
+            <button onclick="shuffle()" class="w-full py-4 text-[10px] font-black uppercase glass rounded-2xl border border-white/10 hover:bg-white/5">🔀 خلط عشوائي</button>
+        </div>
+    </aside>
+
+    <!-- Main Section -->
+    <main class="flex-1 flex flex-col items-center justify-center p-6 relative">
+        <div id="wheel-container">
+            <!-- السهم الجديد تماماً -->
+            <div id="neo-pointer">
+                <div class="pointer-shape" id="pointer-visual"></div>
+            </div>
+            <canvas id="wheel"></canvas>
+        </div>
+
+        <div class="mt-16 text-center">
+            <button onclick="spin()" class="action-btn px-24 lg:px-40 py-6 lg:py-8 rounded-[40px] text-2xl lg:text-3xl font-black text-black uppercase tracking-tighter">
+                إبدأ السحب 🎰
+            </button>
+            <p class="mt-6 text-[10px] font-bold text-gray-500 tracking-widest uppercase opacity-50">Luck Favors the Bold</p>
+        </div>
+    </main>
+
+    <!-- Winner Result -->
+    <div id="modal" class="fixed inset-0 bg-black/95 hidden items-center justify-center z-[200] p-6 backdrop-blur-2xl">
+        <div class="p-12 lg:p-20 text-center rounded-[50px] max-w-xl w-full border border-white/10 bg-[#050505] shadow-2xl relative">
+            <div class="w-20 h-1 bg-green-500 mx-auto mb-10 rounded-full"></div>
+            <p class="text-green-500 text-[10px] font-black uppercase tracking-[0.5em] mb-4">The Winner is</p>
+            <div id="winner-display" class="text-6xl lg:text-8xl font-black text-white mb-16 break-all"></div>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button onclick="closeMod()" class="flex-1 bg-white text-black py-6 rounded-3xl font-black text-xl hover:bg-gray-200 transition-colors">استمرار</button>
+                <button id="del-btn" class="px-8 bg-red-500/10 text-red-500 border border-red-500/20 py-6 rounded-3xl font-bold hover:bg-red-500 hover:text-white transition-colors">حذف الفائز</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const audio = new (window.AudioContext || window.webkitAudioContext)();
+        const cvs = document.getElementById('wheel');
+        const ctx = cvs.getContext('2d');
+        const listDiv = document.getElementById('list');
+        const sidebar = document.getElementById('sidebar');
+        const pointerVisual = document.getElementById('pointer-visual');
+
+        let names = [
+            { t: "مروان النجار", c: "#00ff88" },
+            { t: "ياسين هاني", c: "#ff4747" },
+            { t: "أحمد علي", c: "#478cff" },
+            { t: "ليلى حسن", c: "#ff47ec" },
+            { t: "سارة محمد", c: "#ffc447" }
+        ];
+
+        let angle = 0;
+        let spinning = false;
+        let lastIdx = -1;
+
+        function playSound() {
+            try {
+                if(audio.state === 'suspended') audio.resume();
+                const o = audio.createOscillator();
+                const g = audio.createGain();
+                o.type = 'sine';
+                o.frequency.setValueAtTime(1500, audio.currentTime);
+                g.gain.setValueAtTime(0.04, audio.currentTime);
+                g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.05);
+                o.connect(g); g.connect(audio.destination);
+                o.start(); o.stop(audio.currentTime + 0.05);
+                
+                // حركة السهم عند التكتكة
+                pointerVisual.style.transform = 'translateY(-5px) scaleX(1.1)';
+                setTimeout(() => pointerVisual.style.transform = 'translateY(0) scaleX(1)', 50);
+            } catch(e) {}
+        }
+
+        function draw() {
+            const cx = 500, cy = 500, r = 480;
+            const step = (Math.PI*2) / (names.length || 1);
+            ctx.clearRect(0, 0, 1000, 1000);
+            
+            names.forEach((n, i) => {
+                const a = i * step + angle;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.arc(cx, cy, r, a, a + step);
+                ctx.fillStyle = n.c;
+                ctx.fill();
+                
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.rotate(a + step/2);
+                ctx.textAlign = 'right';
+                ctx.fillStyle = getLum(n.c) > 130 ? '#000' : '#fff';
+                ctx.font = `900 ${names.length > 20 ? 18 : 32}px Cairo`;
+                ctx.fillText(n.t, r - 50, 12);
+                ctx.restore();
+            });
+
+            // Center Styling
+            ctx.beginPath(); ctx.arc(cx, cy, 30, 0, Math.PI*2);
+            ctx.fillStyle = '#fff'; ctx.fill();
+            ctx.beginPath(); ctx.arc(cx, cy, 20, 0, Math.PI*2);
+            ctx.fillStyle = '#030303'; ctx.fill();
+        }
+
+        function getLum(h) {
+            const rgb = parseInt(h.slice(1), 16);
+            return (0.299 * (rgb >> 16)) + (0.587 * ((rgb >> 8) & 255)) + (0.114 * (rgb & 255));
+        }
+
+        function renderList() {
+            listDiv.innerHTML = '';
+            names.forEach((n, i) => {
+                const row = document.createElement('div');
+                row.className = 'flex gap-2 items-center';
+                row.innerHTML = `
+                    <input type="color" value="${n.c}" onchange="edit(${i}, 'c', this.value)" class="w-10 h-10 rounded-xl cursor-pointer bg-transparent border-none">
+                    <input type="text" value="${n.t}" oninput="edit(${i}, 't', this.value)" class="flex-1 bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-xs text-white outline-none focus:ring-1 ring-green-500">
+                    <button onclick="remove(${i})" class="text-white/20 hover:text-red-500 px-2 text-2xl">×</button>
+                `;
+                listDiv.appendChild(row);
+            });
+        }
+
+        function edit(i, k, v) { names[i][k] = v; draw(); }
+        function addNew() { names.push({t: "متسابق", c: "#00ff88"}); renderList(); draw(); }
+        function remove(i) { names.splice(i, 1); renderList(); draw(); }
+        function shuffle() { names.sort(() => Math.random() - 0.5); renderList(); draw(); }
+        function toggleSide() { sidebar.classList.toggle('translate-x-full'); }
+
+        function spin() {
+            if (spinning || names.length < 2) return;
+            spinning = true;
+            let v = 0.8 + Math.random() * 0.5;
+            const f = 0.993;
+
+            function frame() {
+                angle += v;
+                v *= f;
+                draw();
+
+                const step = (Math.PI*2) / names.length;
+                const curIdx = Math.floor(((Math.PI*1.5 - angle) % (Math.PI*2) + (Math.PI*2)) % (Math.PI*2) / step);
+                
+                if(curIdx !== lastIdx) { playSound(); lastIdx = curIdx; }
+
+                if (v > 0.001) requestAnimationFrame(frame);
+                else {
+                    spinning = false;
+                    const win = names[curIdx];
+                    document.getElementById('winner-display').innerText = win.t;
+                    document.getElementById('winner-display').style.color = win.c;
+                    document.getElementById('modal').style.display = 'flex';
+                    confetti({ particleCount: 300, spread: 100, origin: {y: 0.6} });
+                    document.getElementById('del-btn').onclick = () => { names.splice(curIdx, 1); renderList(); draw(); closeMod(); };
+                }
+            }
+            frame();
+        }
+
+        function closeMod() { document.getElementById('modal').style.display = 'none'; }
+
+        cvs.width = 1000; cvs.height = 1000;
+        renderList();
+        draw();
+        window.onresize = draw;
+    </script>
+</body>
+</html>
